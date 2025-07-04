@@ -4,6 +4,8 @@ canvas.width= 0.98 * window.innerWidth;
 canvas.height= window.innerHeight;
 let ctx = canvas.getContext("2d");
 
+var io = io.connect("http://localhost:8080/")
+
 let x;
 let y;
 
@@ -15,6 +17,12 @@ window.onmousedown = (e) =>{
 window.onmouseup = (e) =>{
     mouseDown=false;
 };
+
+io.on('ondraw' , ({x,y})=>{
+    ctx.lineTo(x,y);
+    ctx.stroke();
+})
+
 window.onmousemove = (e) =>{
     x=e.clientX;
     y=e.clientY;
